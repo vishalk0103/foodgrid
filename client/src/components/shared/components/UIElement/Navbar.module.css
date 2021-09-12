@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Potta+One&display=swap');
+.navbar{
+    height: 90px !important;
+    box-shadow: -20px -16px 23px 1px #888888;
+    background-color: var(--bs-body-bg);
+}
+.menu{
+    display: flex;
+    position: relative;
+    left: -30px !important;
+
+}
+.helpIcon{
+    margin-right: 30px !important; 
+   margin-top: 4px !important; 
+}
+.middleBrand{
+      color: rgb(240, 93, 0) !important;
+}
+.brand--logo{
+    margin-left: 50px;
+    font-family: 'Potta One', cursive;
+    color: black;
+    font-size: 2.1rem;
+
+}
+.brand--logo:hover{
+    color: black !important;
+}
+@media only screen and (max-width: 768px) {
+    .helpIcon{
+        position: relative;
+        left: 0px;
+    }
+   .menu{
+       position: relative;
+       left: -20px !important;
+       top: 10px;
+   }
+   .brand--logo{
+    margin-top: 15px !important;
+   }
+}

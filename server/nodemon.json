@@ -1,0 +1,7 @@
+{
+    "env":{
+        "DB_USER":"vishalko",
+        "DB_PASSWORD":"vishal888",
+        "DB_NAME":"foodapp"
+    }
+}

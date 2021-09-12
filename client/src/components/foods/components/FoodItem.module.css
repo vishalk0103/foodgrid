@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif&family=Source+Sans+Pro&family=Ubuntu&display=swap");
+.listCard {
+  margin: 0px !important;
+  margin-bottom: 20px !important;
+  margin-left: 0px !important;
+  max-width: 800px !important;
+  border-bottom: 1px solid rgb(196, 194, 194);
+  font-family: "Ubuntu", sans-serif;
+}
+
+label {
+  font-size: 0.9rem !important;
+  color: #585b5c !important;
+}
+.imgFluid {
+  height: 90px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+.row {
+  height: 100px !important;
+  width: 700px !important;
+  background-color: white;
+  border-radius: 7px;
+  margin-left: 0px !important;
+}
+.listImgs {
+  padding-left: 0px !important;
+}
+.input {
+  display: none !important;
+}
+
+.col-lg-2 {
+  width: 82px !important;
+}
+.row h5 {
+  font-size: 1.1rem;
+}
+@media only screen and (max-width: 768px) {
+  .imgFluid {
+    height: 80px;
+    width: 100%;
+  }
+  .listCard {
+    margin: 0px !important;
+    margin-left: 10px !important;
+    display: flex;
+    justify-content: center !important;
+  }
+  .row {
+    margin-top: 20px;
+    width: 330px !important;
+    display: flex;
+    align-items: center !important;
+    padding: 0px !important;
+  }
+  .row h5 {
+    font-size: 0.7rem;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-bottom: 0px;
+  }
+  .food--form {
+    display: flex;
+    padding: 0px !important;
+  }
+  .row span {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-bottom: 20px;
+  }
+  label {
+    font-size: 0.6rem !important;
+  }
+  .price {
+    font-size: 0.7rem;
+  }
+}

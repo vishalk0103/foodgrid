@@ -1,0 +1,27 @@
+.address--form{
+    width: 40% !important;
+
+}
+.addBtn{
+    border-radius: 0px;
+}
+.label{
+    font-size: 1rem !important;
+    font-weight: 700;
+    color: rgb(21, 94, 75) !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .address--form{
+        width: 100% !important;
+    }
+    .label{
+        margin-left: -10px;
+    }
+}
