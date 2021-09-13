@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import CartContext from "../../store/Cart-context";
 import { Card, ListGroup } from "react-bootstrap";
 import style from "./Cart.module.css";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
-import EmptyCart from "../../cart/EmptyCart";
+
 import { useSelector } from "react-redux";
 
 const Cart = (props) => {

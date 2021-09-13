@@ -1,17 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
-import CartContext from "../../store/Cart-context";
 import { Link } from "react-router-dom";
 import Cart from "./Cart";
 import FoodItem from "./FoodItem";
 import style from "./FoodList.module.css";
 import EmptyCart from "../../cart/EmptyCart";
-import CartProvider from "../../store/Cart-provider";
+
 import { useSelector } from "react-redux";
 
 const FoodList = (props) => {
   const cartItems = useSelector((state) => state.cart.items);
   return (
-    <CartProvider>
+
       <div className={style.content}>
         <div className={style.cart}>
          {cartItems.length >0 && <Cart content={  <Link to="/checkout">
@@ -77,7 +76,7 @@ const FoodList = (props) => {
         </div>
       </div>
 
-    </CartProvider>
+
   );
 };
 

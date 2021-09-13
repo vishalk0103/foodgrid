@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import style from "./FoodItem.module.css";
 import { Container, Row, Col } from "react-bootstrap";
 import FoodItemForm from "./FoodItemForm";
-import CartContext from "../../store/Cart-context";
+
 import { useDispatch } from "react-redux";
 import { CartActions } from "../../store/Cart-slice";
 
@@ -31,14 +31,14 @@ const FoodItem = (props) => {
       <Container className={` ${style.listCard} `}>
         <Row className={` justify-content-md-start ${style.row}`}>
           <Col xs lg="3" className= {style.listImgs}>
-            {/* <div className={ `col-md-10 ${style.listImg}` }> */}
+
               <img
                 src={props.image}
                 alt='foodHub'
                 onError={(e) => e.target.style.display='none'  }
                 class={`${style.imgFluid}`}
               />
-            {/* </div> */}
+          
           </Col>
           <Col xs lg="5" className="">
           <img src={img} height='15px'/>

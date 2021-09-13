@@ -5,10 +5,8 @@ import { useParams } from "react-router";
 import FoodList from "../components/FoodList";
 import FoodItemsHeader from "../components/FoodItemsHeader";
 import Footer from "../../home/components/footer";
-import Cart from "../components/Cart";
-import style from "./Foods.module.css";
 
-const Foods = (props) => {
+const Foods = () => {
   const [loadedFoods, setLoadedFoods] = useState();
   const [restaurant, setResaurant] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

@@ -36,12 +36,6 @@ const createRestaurant=async (req, res) =>{
     })
     newRestaurant.coordinate =geoData.body.features[0].geometry
     try{
-    // const sess = await mongoose.startSession();
-    // sess.startTransaction();
-    // await newRestaurant.save({ session: sess }); 
-    // user.places.push(newRestaurant); 
-    // await user.save({ session: sess }); 
-    // await sess.commitTransaction();
     await newRestaurant.save()
     }catch(err){
         console.log(err)

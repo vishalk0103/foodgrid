@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useCallback,Suspense, useState, useEffect } from "react";
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import {  Route, Redirect, Switch } from "react-router-dom";
+import {  useDispatch } from 'react-redux';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
@@ -14,17 +14,17 @@ import UserContext from "./components/store/User-context";
 import LocationContext from "./components/store/Location-context";
 import {sendCartData ,fetchCartData } from './components/store/cart-actions'
 import Spinner from './components/shared/components/UIElement/Spinner'
+import Home from "./components/home/pages/Home.js";
+import Restaurants from "./components/restaurants/pages/Restaurants";
+import Profile from './components/users/pages/Profile'
+import GiftCard from "./components/users/pages/GiftCard";
+import Foods from "./components/foods/page/Foods";
+import Checkout from "./components/checkout/Checkout";
+import Login from "./components/auth/Login";
+import Signup from "./components/auth/Signup";
+import Account from './components/users/pages/Account'
 
 
-const Home= React.lazy(()=> import('./components/home/pages/Home.js'))
-const Restaurants = React.lazy(()=>import("./components/restaurants/pages/Restaurants"))
-const Profile = React.lazy(()=>import("./components/users/pages/Profile"))
-const GiftCard = React.lazy(()=>import("./components/users/pages/GiftCard"))
-const Foods = React.lazy(()=>import("./components/foods/page/Foods"))
-const Checkout = React.lazy(()=>import("./components/checkout/Checkout"))
-const Login = React.lazy(()=>import("./components/auth/Login"))
-const Account = React.lazy(()=>import("./components/users/pages/Account"))
-const Signup = React.lazy(()=>import("./components/auth/Signup"))
 
 let isInitial = true;
 let logoutTimer;
@@ -37,7 +37,7 @@ function App() {
   const [email, setEmail] = useState();
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [userId, setUserId] = useState();
-  // const [isLoggedIn, setIsloggedIn] = useState(false);
+
 
   useEffect(() => {
     dispatch(fetchCartData());
@@ -74,7 +74,7 @@ function App() {
         expiration: tokenExpirationDate.toISOString(),
       })
     );
-    // setIsloggedIn(true);
+
   }, []);
   const logout = useCallback(() => {
     setToken(null);

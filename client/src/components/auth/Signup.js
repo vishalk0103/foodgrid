@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import NavBarNew from "../shared/components/UIElement/NavbarNew";
 import { AuthContext } from "../store/Auth-context";
-import style from "./Login.module.css";
+import style from "./Auth.module.css";
 import { Link } from "react-router-dom";
 import Validation from "../shared/components/UIElement/Validation";
 import Spinner from "../shared/components/UIElement/Spinner";

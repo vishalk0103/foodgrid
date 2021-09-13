@@ -9,7 +9,6 @@ const EmptyCart=(props)=>{
            <Card className={`shadow ${style.cart}`} style={{ width: "27rem" }}>
           <Card.Body className="px-0">
             <Card.Title className="ms-2">
-            {/* <h2 className='ms-2 text-muted'> <strong> Empty Cart </strong></h2> */}
             </Card.Title>
           </Card.Body>
           <ListGroup className={`list-group-flush ${style["cart--items"]}`}>

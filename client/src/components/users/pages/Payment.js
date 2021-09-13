@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBarNew from '../../shared/components/UIElement/NavbarNew';
 import UserNavbar from '../components/UserNavbar';
-// import style from "./Account.module.css";
+
 import Footer from "../../home/components/footer";
 import './Account.css'
 const Payment=()=>{

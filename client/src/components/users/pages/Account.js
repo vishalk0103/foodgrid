@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router";
 import NavBarNew from "../../shared/components/UIElement/NavbarNew";
 import UserNavbar from "../components/UserNavbar";
-// import style from "./Account.module.css";
+
 import './Account.css'
 import Validation from "../../shared/components/UIElement/Validation";
 import Footer from "../../home/components/footer";

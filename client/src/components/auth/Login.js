@@ -4,7 +4,7 @@ import NavBarNew from "../shared/components/UIElement/NavbarNew";
 import { AuthContext } from "../store/Auth-context";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
-import style from "./Login.module.css";
+import style from "./Auth.module.css";
 import Validation from "../shared/components/UIElement/Validation";
 import {useHttpClient} from '../store/Http-hook'
 import { TopModal } from "../shared/components/UIElement/Modal";
@@ -13,7 +13,6 @@ const Login = () => {
   const history=useHistory()
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
-  // const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
   const [logValue, setLogValue] = useState({

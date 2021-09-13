@@ -5,7 +5,6 @@ import { CartActions } from "../../store/Cart-slice";
 
 const CartItem = (props) => {
   const dispatch= useDispatch()
-  const price = `${props.totalPrice}`;
   const removeItemFromCart=()=>{
     dispatch(CartActions.removeItemFromCart(props.id))
   }
@@ -42,10 +41,7 @@ const CartItem = (props) => {
        
       </div>
         </div>
-        {/* <div className={classes.summary}> */}
-          
-    
-        {/* </div> */}
+
    
       </div>
       </div>

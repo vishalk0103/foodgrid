@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Modal } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import style from "./FoodItemsHeader.module.css";
 import Modals from "../../shared/components/UIElement/Modal";
 import Map from "../../shared/components/UIElement/Map";

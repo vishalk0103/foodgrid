@@ -1,7 +1,7 @@
 import React from "react";
 import NavBarNew from "../../shared/components/UIElement/NavbarNew";
 import UserNavbar from "../components/UserNavbar";
-// import style from "./Account.module.css";
+
 import Footer from "../../home/components/footer";
 import "./Account.css";
 
@@ -10,20 +10,7 @@ const Favorite = () => {
     <React.Fragment>
       <NavBarNew />
       <UserNavbar />
-      {/* <div className={` container-fluid mt-3 d-flex justify-content-center `}>
-          <div className={` row col-md-6 `}>
-            <div className={`shadow p-3 bg-white rounded ${style.account}`}>
-              <div className="d-flex justify-content-center mt-5">
-               
-        <h4> No Favorite items.</h4>
-              </div>
-            
-          </div>
-        </div>
-        </div>
-        <div className={style['acc--footer']} >
-        <Footer />
-        </div> */}
+
         <div class="page-content page-container" id="page-content">
     <div class="padding">
         <div class="offset-md d-flex justify-content-center">
