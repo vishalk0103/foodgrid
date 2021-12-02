@@ -53,17 +53,19 @@ const login = async (req, res ,next) => {
       new HttpError('Invalid credentials!'))
   }
   let isValidPassword = await bcryptjs.compare(password, identifyUser.password)
+  console.log(identifyUser.password)
+  console.log()
   if (!isValidPassword) {
     return next(
       new HttpError('Invalid credentials!'))
   }
+  
 
   const token = jwt.sign(
     { userId: identifyUser._id, email: identifyUser.email },
     "dontshare",
     { expiresIn: "1h" }
   );
-  console.log(identifyUser._id);
   res.json({
     userId: identifyUser._id,
     email: identifyUser.email,
