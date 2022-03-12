@@ -5,26 +5,81 @@ import UserNavbar from "../components/UserNavbar";
 
 import "./Account.css";
 import Validation from "../../shared/components/UIElement/Validation";
-import Footer from "../../home/components/footer";
+import Footer from '../../home/footer'
 import UserContext from "../../store/User-context";
 import Sidebar from "../../shared/components/UIElement/SideBar";
+import useForm from "../../shared/components/FormElement/Form-hook";
+import { FormSelect } from "react-bootstrap";
 
 const Account = () => {
+  const {
+    value:enteredName,
+    valueIsValid:enteredNameIsValid,
+    hasError:nameHasError,
+    inputBlurHandler:nameBlurHandler,
+    inputChangeHandler:nameChangeHandler,
+    reset:nameReset
+  }= useForm((value) => value.trim() !== "")
+
+  const {
+    value:enteredEmail,
+    valueIsValid:enteredEmailIsValid,
+    hasError:emailHasError,
+    inputBlurHandler:emailBlurHandler,
+    inputChangeHandler:emailChangeHandler,
+    reset:emailReset
+  }= useForm(value=>value.trim()!==''&& value.includes('@') && value.includes('.'))
+
+  const {
+    value:enteredpass,
+    valueIsValid:enteredpassIsValid,
+    hasError:passHasError,
+    inputBlurHandler:passBlurHandler,
+    inputChangeHandler:passChangeHandler,
+    reset:passReset
+  }= useForm(value=> value.trim()!=='')
+
+
   const { username, setUsername } = useContext(UserContext);
   const [errors, setErrors] = useState({});
   const { email, setEmail } = useContext(UserContext);
-  const [showEdit, setShowEdit] = useState(false);
+  const [showEdit, setShowEdit] = useState(true);
+
   const onHideEdit = () => {
     setShowEdit(false);
   };
-  const onShowEdit = () => {
-    setShowEdit(true);
-  };
+
+  // const onShowEdit = () => {
+  //   setShowEdit(true);
+  // };
+
+  let formIsValid=false
+
+  if(enteredEmailIsValid && enteredNameIsValid && enteredpassIsValid){
+    formIsValid=true
+  }
+
   const onUpdateProfileHandler = (e) => {
     e.preventDefault();
-    setErrors(Validation(username, email));
-    setShowEdit(false);
+    // setShowEdit(false);
+    const newData={
+      updatedName:enteredName,
+      updatedEmail:enteredEmail,
+      updatedPass:enteredpass
+    }
+    nameReset()
+    emailReset()
+    passReset()
+    console.log(newData)
   };
+
+  const nameClass=nameHasError ? 'invalid' : ''
+  
+  const emailClass=emailHasError ? 'invalid' : ''
+  const passClass=passHasError ? 'invalid' : ''
+
+
+
   return (
     <React.Fragment>
       {["start"].map((placement, idx) => (
@@ -43,6 +98,7 @@ const Account = () => {
           }
         >
           <form onSubmit={onUpdateProfileHandler}>
+          <div className={nameClass}>
             <label className="form-label" htmlFor="username">
               Username
             </label>
@@ -50,11 +106,16 @@ const Account = () => {
               className="form-control"
               type="text"
               name="username"
+              value={username}
+              onBlur={nameBlurHandler}
+              onChange={nameChangeHandler}
               id="username"
             />
-            {errors.username && (
-              <p className="text-danger">{errors.username}</p>
+            {nameHasError && (
+              <p className="text-danger">Please Enter Valid Name!</p>
             )}
+            </div>
+            <div className={emailClass}>
             <label className="form-label" htmlFor="email">
               Email
             </label>
@@ -62,11 +123,31 @@ const Account = () => {
               className="form-control"
               type="text"
               name="email"
+              value={enteredEmail}
+              onBlur={emailBlurHandler}
+              onChange={emailChangeHandler}
               id="email"
             />
-            <button type="submit" className="btn btn-success mt-3">
+          {emailHasError &&  <p className="text-danger"> Please Enter Valid Email!</p>}
+            </div>
+            <div className={passClass}>
+            <label className="form-label" htmlFor="pass">
+              Password
+            </label>
+            <input
+              className="form-control"
+              type="text"
+              name="pass"
+              value={enteredpass}
+              onBlur={passBlurHandler}
+              onChange={passChangeHandler}
+              id="pass"
+            />
+          {passHasError &&  <p className="text-danger"> Please Enter Valid Password!</p>}
+            </div>
+            {formIsValid && <button type="submit" className="btn btn-success mt-3">
               Save
-            </button>
+            </button>}
           </form>
         </Sidebar>
       ))}

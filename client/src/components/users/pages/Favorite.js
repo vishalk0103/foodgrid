@@ -2,7 +2,7 @@ import React from "react";
 import NavBarNew from "../../shared/components/UIElement/NavbarNew";
 import UserNavbar from "../components/UserNavbar";
 
-import Footer from "../../home/components/footer";
+import Footer from '../../home/footer'
 import "./Account.css";
 
 const Favorite = () => {

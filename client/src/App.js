@@ -1,8 +1,8 @@
 import "./App.css";
-import React, { useCallback,Suspense, useState, useEffect } from "react";
-import {  Route, Redirect, Switch } from "react-router-dom";
+import React, { useCallback, Suspense, useState, useEffect } from "react";
+import { Route, Redirect, Switch } from "react-router-dom";
 
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
@@ -13,32 +13,29 @@ import OrderHistory from "./components/users/pages/Order-History";
 import { AuthContext } from "./components/store/Auth-context";
 import UserContext from "./components/store/User-context";
 import LocationContext from "./components/store/Location-context";
-import {sendCartData ,fetchCartData } from './components/store/cart-actions'
-import Spinner from './components/shared/components/UIElement/Spinner'
-import Home from "./components/home/pages/Home.js";
-import Restaurants from "./components/restaurants/pages/Restaurants";
-import Profile from './components/users/pages/Profile'
+import { sendCartData, fetchCartData } from "./components/store/cart-actions";
+import Spinner from "./components/shared/components/UIElement/Spinner";
+import Home from "./pages/Home.js";
+import Restaurants from "./pages/Restaurants";
+import Profile from "./components/users/pages/Profile";
 import GiftCard from "./components/users/pages/GiftCard";
-import Foods from "./components/foods/page/Foods";
-import Checkout from "./components/checkout/Checkout";
-import Login from "./components/auth/Login";
-import Signup from "./components/auth/Signup";
-import Account from './components/users/pages/Account'
-
-
+import Foods from "./pages/Foods";
+import Checkout from "./pages/Checkout";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Account from "./components/users/pages/Account";
 
 let isInitial = true;
 let logoutTimer;
 function App() {
-  const dispatch = useDispatch()
-  const cart= useDispatch(state =>state.cart )
+  const dispatch = useDispatch();
+  const cart = useDispatch((state) => state.cart);
   const [token, setToken] = useState(false);
   const [location, setLocation] = useState([]);
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [userId, setUserId] = useState();
-
 
   useEffect(() => {
     dispatch(fetchCartData());
@@ -56,16 +53,18 @@ function App() {
   const login = useCallback((uid, token, expirationDate) => {
     setToken(token);
     setUserId(uid);
-  const sendRequest = async () => {
-        const response = await fetch(
-          process.env.REACT_APP_BACKEND+`/user/${uid}/profile`
-        );
-        const responseData = await response.json();
-        setUsername(responseData.username);
-        setEmail(responseData.email);
-  }
-  sendRequest()
-    const tokenExpirationDate =expirationDate || new Date(new Date().getTime() + 3000 * 60*60 *24 *7);
+    const sendRequest = async () => {
+      const response = await fetch(
+        process.env.REACT_APP_BACKEND + `/user/${uid}/profile`
+      );
+      const responseData = await response.json();
+      setUsername(responseData.username);
+      setEmail(responseData.email);
+    };
+    sendRequest();
+    const tokenExpirationDate =
+      expirationDate ||
+      new Date(new Date().getTime() + 3000 * 60 * 60 * 24 * 7);
     setTokenExpirationDate(tokenExpirationDate);
     localStorage.setItem(
       "userData",
@@ -75,7 +74,6 @@ function App() {
         expiration: tokenExpirationDate.toISOString(),
       })
     );
-
   }, []);
   const logout = useCallback(() => {
     setToken(null);
@@ -141,8 +139,7 @@ function App() {
         <Route path="/checkout">
           <Checkout />
         </Route>
-        <Redirect to='/'/>
-      
+        <Redirect to="/" />
       </React.Fragment>
     );
   } else {
@@ -154,7 +151,7 @@ function App() {
         <Route path="/:location/restaurants" exact>
           <Restaurants />
         </Route>
-        <Route path="/login" exact >
+        <Route path="/login" exact>
           <Login />
         </Route>
         <Route path="/checkout">
@@ -185,7 +182,17 @@ function App() {
           value={{ username, setUsername, email, setEmail }}
         >
           <div className="App ">
-            <Switch><Suspense fallback={<div className='center'><Spinner/></div>}>{routes}</Suspense></Switch>
+            <Switch>
+              <Suspense
+                fallback={
+                  <div className="center">
+                    <Spinner />
+                  </div>
+                }
+              >
+                {routes}
+              </Suspense>
+            </Switch>
           </div>
         </UserContext.Provider>
       </LocationContext.Provider>

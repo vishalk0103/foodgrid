@@ -1,5 +1,5 @@
 import React from 'react'
-import style from '../foods/components/Cart.module.css'
+import style from './Cart.module.css'
 import { Card,ListGroup } from 'react-bootstrap'
 
 const EmptyCart=(props)=>{

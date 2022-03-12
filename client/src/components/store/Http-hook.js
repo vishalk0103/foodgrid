@@ -53,3 +53,11 @@ export const useHttpClient = () => {
 
   return { isLoading, error, sendRequest, clearError };
 };
+
+
+
+
+
+export default useHttpClient
+
+

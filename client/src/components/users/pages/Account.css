@@ -17,7 +17,9 @@
 
 
 
-
+.invalid input{
+background-color: red;
+}
 .padding {
     padding: 3rem !important
 }

@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import style from "./Cart.module.css";
-import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 
 import { useSelector } from "react-redux";
@@ -19,7 +18,6 @@ const Cart = (props) => {
           <Card.Body className="px-0">
             <Card.Title className="ms-2">
               <h3>Cart</h3>
-              {/* {cartItems.length} Items */}
             </Card.Title>
           </Card.Body>
           <ListGroup className={`list-group-flush ${style["cart--items"]}`}>

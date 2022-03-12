@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import style from "./FoodItemsHeader.module.css";
-import Modals from "../../shared/components/UIElement/Modal";
-import Map from "../../shared/components/UIElement/Map";
+import Modals from "../shared/components/UIElement/Modal";
+import Map from "../shared/components/UIElement/Map";
 import "mapbox-gl/dist/mapbox-gl.css";
+
 const FoodItemsHeader = (props) => {
   const [viewMap, setViewMap] = useState(false);
   const onViewMapHandler = () => {
@@ -12,6 +13,8 @@ const FoodItemsHeader = (props) => {
   const onHideMapHandler = () => {
     setViewMap(false);
   };
+
+  
   return (
     <React.Fragment>
       <Modals
@@ -21,6 +24,8 @@ const FoodItemsHeader = (props) => {
       >
         <Map location={props.restaurant.coordinate} />
       </Modals>
+
+
       <Card className={style.header}>
         <Card.Img
           className={style.headImg}

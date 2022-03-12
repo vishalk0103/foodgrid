@@ -1,14 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "./Search.css";
-import Button from "../../shared/components/FormElement/Button";
-import { Link } from "react-router-dom";
-import LocationContext from "../../store/Location-context";
 import { useHistory } from "react-router";
 
 const Search = () => {
   const history = useHistory();
+  const [location,setLocation]= useState('')
   const [checkValue, setCheckValue] = useState(true);
-  const { location, setLocation } = useContext(LocationContext);
   const onChange = (e) => {
     setLocation(e.target.value.trim().toLowerCase());
     if (location.length < 0) {
@@ -29,9 +26,7 @@ const Search = () => {
   return (
     <React.Fragment>
       <div className="col-md-7 offset-md-2 search-sec">
-         <h1 className="text-center ">DO WHAT FEEDS YOU.</h1>
-     
-         
+        <h1 className="text-center ">DO WHAT FEEDS YOU.</h1>
 
         <form onSubmit={formSubmitHandler}>
           <div class="input-group ">
@@ -55,12 +50,16 @@ const Search = () => {
           </div>
 
           <div class="mb-3">
-     {checkValue &&    <button type="submit" className=" btn btn-s">
-              FIND RESTAURANTS IN YOUR AREA
-            </button>}
-          {!checkValue &&  <button type="submit" className=" btn btn-valid btn-danger">
-              PLEASE ENTER CITY.
-            </button>}
+            {checkValue && (
+              <button type="submit" className=" btn btn-s">
+                FIND RESTAURANTS IN YOUR AREA
+              </button>
+            )}
+            {!checkValue && (
+              <button type="submit" className=" btn btn-valid btn-danger">
+                PLEASE ENTER CITY.
+              </button>
+            )}
           </div>
         </form>
       </div>
