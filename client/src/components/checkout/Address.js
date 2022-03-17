@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import AddressList from "./AddressList";
 import AddressForm from "./AddressForm";
-import { AuthContext } from "../store/Auth-context";
-import useHttp from "../store/useHttp";
+import useHttp from "../Hooks/useHttp";
 import AddressButton from "./AddressButton";
 
 const Address = () => {
-  const auth = useContext(AuthContext);
+  const user=JSON.parse(localStorage.getItem('user'))
   const { sendRequest } = useHttp();
   const [addForm, setAddForm] = useState(false);
   const [loadedAddress, setLoadedAddress] = useState([]);
@@ -14,7 +13,7 @@ const Address = () => {
   useEffect(() => {
     sendRequest(
       {
-        url: process.env.REACT_APP_BACKEND + `/address/${auth.userId}`,
+        url: process.env.REACT_APP_BACKEND + `/address/${user.userId}`,
       },
       (loadAddress) => {
         setLoadedAddress(loadAddress.addresses);
@@ -32,7 +31,7 @@ const Address = () => {
 
   const addressDeleteHandler = async () => {
     const response = await fetch(
-      process.env.REACT_APP_BACKEND + `/address/${auth.userId}`
+      process.env.REACT_APP_BACKEND + `/address/${user.userId}`
     );
     const responseData = await response.json();
     setLoadedAddress(responseData.addresses);

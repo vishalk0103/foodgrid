@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import style from "./AddressItem.module.css";
-import { TopModal } from "../shared/components/UIElement/Modal";
+import { TopModal } from "../shared/Modal";
 
 const AddressItem = (props) => {
   const [isLoading, setIsLoading] = useState(false);

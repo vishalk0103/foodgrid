@@ -1,12 +1,11 @@
-import React, { useState, useContext } from "react";
-import { TopModal } from "../shared/components/UIElement/Modal";
+import React, { useState } from "react";
+import { TopModal } from "../shared/Modal";
 import { Link } from "react-router-dom";
 import style from "./AddressButton.module.css";
-import { AuthContext } from "../store/Auth-context";
 
 const AddressButton = (props) => {
-  const auth = useContext(AuthContext);
-  
+  let user=JSON.parse(localStorage.getItem('user'))
+
   const [loginModal, setLoginModal] = useState(false);
 
   const onShowLogin = () => {
@@ -46,7 +45,7 @@ const AddressButton = (props) => {
         <div className={`${style.addressBtn}`}>
           <div className={` ${style.addressButton}`}>
             <h5 className="mt-3 mx-3">Add new address</h5>
-            {auth.isLoggedIn && (
+            {user.isLoggedIn && (
               <button
                 className="btn btn-dark mt-4 mx-3"
                 onClick={props.onClick}
@@ -54,7 +53,7 @@ const AddressButton = (props) => {
                 ADD NEW
               </button>
             )}
-            {!auth.isLoggedIn && (
+            {!user.isLoggedIn && (
               <button className="btn btn-dark mt-4 mx-3" onClick={onShowLogin}>
                 ADD NEW
               </button>

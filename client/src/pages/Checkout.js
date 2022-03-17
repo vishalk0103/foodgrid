@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./Cart.module.css";
-import NavBarNew from "../components/shared/components/UIElement/NavbarNew";
+import NavBarNew from "../components/shared/NavbarNew";
 import Footer from "../components/home/footer";
 import Address from "../components/checkout/Address";
 import Cart from "../components/cart/Cart";

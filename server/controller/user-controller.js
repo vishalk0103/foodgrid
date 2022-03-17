@@ -37,6 +37,7 @@ const signup = async (req, res,next) => {
     res.json({
       userId: newUser._id,
       email: newUser.email,
+      username:newUser.username,
       token: token,
     });
     console.log(newUser);
@@ -69,6 +70,7 @@ const login = async (req, res ,next) => {
   res.json({
     userId: identifyUser._id,
     email: identifyUser.email,
+    name:identifyUser.username,
     token: token,
   });
 };

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import style from "./FoodItemsHeader.module.css";
-import Modals from "../shared/components/UIElement/Modal";
-import Map from "../shared/components/UIElement/Map";
+import Map from "../shared/Map";
+import Modals from "../shared/Modal";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const FoodItemsHeader = (props) => {
@@ -14,7 +14,6 @@ const FoodItemsHeader = (props) => {
     setViewMap(false);
   };
 
-  
   return (
     <React.Fragment>
       <Modals
@@ -24,7 +23,6 @@ const FoodItemsHeader = (props) => {
       >
         <Map location={props.restaurant.coordinate} />
       </Modals>
-
 
       <Card className={style.header}>
         <Card.Img

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import NavBarNew from "../components/shared/components/UIElement/NavbarNew";
-import Spinner from "../components/shared/components/UIElement/Spinner";
+import NavBarNew from "../components/shared/NavbarNew";
+import Spinner from "../components/shared/Spinner";
 import RestaurantList from "../components/restaurants/RestaurantList";
 import { useParams } from "react-router";
-import useHttp from "../components/store/useHttp";
+import useHttp from "../components/Hooks/useHttp";
 
 const Restaurants = () => {
   const location = useParams().location;

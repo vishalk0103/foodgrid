@@ -1,14 +1,11 @@
 import React, { useState, useContext } from "react";
 import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
-import NeedHelpModal from "../shared/components/UIElement/NeedHelpModal";
-import ProfileSidebar from "../shared/components/UIElement/ProfileSidebar";
-import { AuthContext } from "../store/Auth-context";
-import UserContext from "../store/User-context";
+import NeedHelpModal from "../shared/NeedHelpModal";
+import ProfileSidebar from "../shared/ProfileSidebar";
 
 const Navbar = () => {
-  const auth = useContext(AuthContext);
-  const user = useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem("user"));
   const [modalShow, setModalShow] = useState(false);
   const [showUser, setShowUser] = useState(false);
 
@@ -57,7 +54,7 @@ const Navbar = () => {
                 <span className="text-white middle-sign bg-white mx-2"></span>
                 <div>
                   <li className="nav-item">
-                    {auth.isLoggedIn && (
+                    {user.isLoggedIn && (
                       <Link
                         to="/"
                         className="nav-link  text-white bolder"
@@ -72,7 +69,7 @@ const Navbar = () => {
                         </span>
                       </Link>
                     )}
-                    {!auth.isLoggedIn && (
+                    {!user.isLoggedIn && (
                       <Link to="/login" className="nav-link  text-white bolder">
                         <img
                           className="profile-logo me-2"

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import NavBarNew from "../components/shared/components/UIElement/NavbarNew";
-import Spinner from "../components/shared/components/UIElement/Spinner";
+import NavBarNew from "../components/shared/NavbarNew";
+import Spinner from "../components/shared/Spinner";
 import { useParams } from "react-router";
 import FoodList from "../components/foods/FoodList";
 import FoodItemsHeader from '../components/foods/FoodItemsHeader'
 import Footer from '../components/home/footer'
-import useHttp from "../components/store/useHttp";
+import useHttp from "../components/Hooks/useHttp";
 
 const Foods = () => {
   const [loadedFoods, setLoadedFoods] = useState();

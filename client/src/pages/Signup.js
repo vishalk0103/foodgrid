@@ -1,19 +1,17 @@
-import React, { useState, useContext } from "react";
-import NavBarNew from "../components/shared/components/UIElement/NavbarNew";
-import { AuthContext } from "../components/store/Auth-context";
+import React from "react";
+import NavBarNew from "../components/shared/NavbarNew";
 import style from "./Auth.module.css";
 import { Link } from "react-router-dom";
-import Spinner from "../components/shared/components/UIElement/Spinner";
+import Spinner from "../components/shared/Spinner";
 import { useHistory } from "react-router";
-import { TopModal } from "../components/shared/components/UIElement/Modal";
-import { useHttpClient } from "../components/store/Http-hook";
-import useForm from "../components/store/useForm";
+import { TopModal } from "../components/shared/Modal";
+import useForm from "../components/Hooks/useForm";
+import useHttp from "../components/Hooks/useHttp";
 
 const Signup = () => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { isLoading, error, sendRequest, clearError } = useHttp();
   const history = useHistory();
-  const auth = useContext(AuthContext);
-  
+
   const {
     value: name,
     isValidate: nameIsValidate,
@@ -36,8 +34,6 @@ const Signup = () => {
     onBlurHanlder: passBlurHandler,
   } = useForm((value) => value.trim() !== "");
 
-
-
   let formIsValid = false;
   if (nameIsValidate && passIsValidate && emailIsValidate) {
     formIsValid = true;
@@ -45,23 +41,30 @@ const Signup = () => {
 
   const onSingupFormSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const responseData = await sendRequest(
-        process.env.REACT_APP_BACKEND + `/user/signup`,
-        "POST",
-        JSON.stringify({
+
+    sendRequest(
+      {
+        url: process.env.REACT_APP_BACKEND + `/user/signup`,
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: {
           username: name,
           email: email,
           password: password,
-        }),
-        {
-          "Content-Type": "application/json",
-        }
-      );
-
-      auth.login(responseData.userId, responseData.token);
-      history.push("/");
-    } catch (err) {}
+        },
+      },
+      (responseData) => {
+        let data = {
+          token: responseData.token,
+          username: responseData.name,
+          email: responseData.email,
+          userId: responseData.userId,
+          isLoggedIn: true,
+        };
+        localStorage.setItem("user", JSON.stringify(data));
+        history.push("/");
+      }
+    );
   };
 
   const nameClass = nameHasError && style.invalid;

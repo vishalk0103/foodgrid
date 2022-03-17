@@ -1,16 +1,15 @@
-import React, { useState, useContext } from "react";
-import Spinner from "../components/shared/components/UIElement/Spinner";
-import NavBarNew from "../components/shared/components/UIElement/NavbarNew";
-import { AuthContext } from "../components/store/Auth-context";
-import { Link } from "react-router-dom";
+import React from "react";
+import Spinner from "../components/shared/Spinner";
+import NavBarNew from "../components/shared/NavbarNew";
+import { Link, useHistory } from "react-router-dom";
 import style from "./Auth.module.css";
-import { useHttpClient } from "../components/store/Http-hook";
-import { TopModal } from "../components/shared/components/UIElement/Modal";
-import useForm from "../components/store/useForm";
+import { TopModal } from "../components/shared/Modal";
+import useForm from "../components/Hooks/useForm";
+import useHttp from "../components/Hooks/useHttp";
 
 const Login = () => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  const auth = useContext(AuthContext);
+  const history = useHistory();
+  const { isLoading, error, clearError, sendRequest } = useHttp();
 
   const {
     value: email,
@@ -18,7 +17,6 @@ const Login = () => {
     isValidate: emailIsValidate,
     onChangeHandler: emailOnChangeHandler,
     onBlurHanlder: emailBlurHandler,
-    reset: eReset,
   } = useForm((value) => value.trim() !== "" && value.includes("@"));
 
   const {
@@ -27,7 +25,6 @@ const Login = () => {
     isValidate: passIsValid,
     onChangeHandler: passwordOnChangeHandler,
     onBlurHanlder: passwordBlurHandler,
-    reset: pReset,
   } = useForm((value) => value.trim() !== "");
   let formIsValid = false;
   if (emailIsValidate && passIsValid) {
@@ -35,21 +32,30 @@ const Login = () => {
   }
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
-
-    try {
-      const responseData = await sendRequest(
-        process.env.REACT_APP_BACKEND + "/user/login",
-        "POST",
-        JSON.stringify({
+    sendRequest(
+      {
+        url: process.env.REACT_APP_BACKEND + "/user/login",
+        method: "POST",
+        body: {
           email: email,
           password: password,
-        }),
-        {
+        },
+        headers: {
           "Content-Type": "application/json",
-        }
-      );
-      auth.login(responseData.userId, responseData.token);
-    } catch (err) {}
+        },
+      },
+      (responseData) => {
+        let data = {
+          token: responseData.token,
+          username: responseData.name,
+          email: responseData.email,
+          userId: responseData.userId,
+          isLoggedIn: true,
+        };
+        localStorage.setItem("user", JSON.stringify(data));
+        history.push("/");
+      }
+    );
   };
 
   const emailClass = emailHasError ? style.invalid : "";

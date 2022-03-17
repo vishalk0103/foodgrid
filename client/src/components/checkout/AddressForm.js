@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import Sidebar from "../shared/components/UIElement/SideBar";
+import Sidebar from "../shared/SideBar";
 import style from "./AddressForm.module.css";
-import Validation from "../shared/components/UIElement/Validation";
-import { AuthContext } from "../store/Auth-context";
-import Spinner from "../shared/components/UIElement/Spinner";
+import Validation from "../shared/Validation";
+import Spinner from "../shared/Spinner";
 
 const AddressForm = (props) => {
-  const auth = useContext(AuthContext);
+  const user=JSON.parse(localStorage.getItem('user'))
   const [isLoading, setIsLoading] = useState(false);
   const [formValue, setFormValue] = useState({
     address: "",
@@ -44,12 +43,12 @@ const AddressForm = (props) => {
           city: formValue.city,
           landmark: formValue.landmark,
           pincode: formValue.pincode,
-          user: auth.userId,
+          user: user.userId,
         }),
       };
       await fetch(process.env.REACT_APP_BACKEND + `/address`, requestOptions);
       const response = await fetch(
-        process.env.REACT_APP_BACKEND + `/address/${auth.userId}`
+        process.env.REACT_APP_BACKEND + `/address/${user.userId}`
       );
       const responseData = await response.json();
       props.newAdd(responseData.addresses);
