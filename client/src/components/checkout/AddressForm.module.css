@@ -1,14 +1,13 @@
-.address--form{
-    width: 40% !important;
-
+.address--form {
+  width: 40% !important;
 }
-.addBtn{
-    border-radius: 0px;
+.addBtn {
+  border-radius: 0px;
 }
-.label{
-    font-size: 1rem !important;
-    font-weight: 700;
-    color: rgb(21, 94, 75) !important;
+.label {
+  font-size: 1rem !important;
+  font-weight: 700;
+  color: rgb(21, 94, 75) !important;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -16,12 +15,11 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-
 @media only screen and (max-width: 768px) {
-    .address--form{
-        width: 100% !important;
-    }
-    .label{
-        margin-left: -10px;
-    }
+  .address--form {
+    width: 100% !important;
+  }
+  .label {
+    margin-left: -10px;
+  }
 }

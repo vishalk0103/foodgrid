@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Search.css";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
-  const history = useHistory();
-  const [location,setLocation]= useState('')
+  const navigate = useNavigate();
+  const [location, setLocation] = useState("");
   const [checkValue, setCheckValue] = useState(true);
   const onChange = (e) => {
     setLocation(e.target.value.trim().toLowerCase());
@@ -21,7 +21,7 @@ const Search = () => {
       return setCheckValue(false);
     }
     setCheckValue(true);
-    history.push(`${location}/restaurants`);
+    navigate(`${location}/restaurants`);
   };
   return (
     <React.Fragment>
@@ -33,7 +33,7 @@ const Search = () => {
             <span className="input-group-text bg-white" id="basic-addon1">
               <img
                 className="bg-white "
-                src="https://image.flaticon.com/icons/png/128/660/660184.png"
+                src="https://img.icons8.com/ios-filled/2x/marker.png"
               />
             </span>
             <input

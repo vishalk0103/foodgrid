@@ -1,0 +1,38 @@
+
+.navitems{
+    width: 600px;
+    padding: 0px !important;
+    
+}
+
+.navitems a{
+    color: rgb(117, 109, 109);
+    font-weight: 650;
+}
+.active{
+    color: black !important;
+    font-weight: 799 !important;
+    border-bottom: 3px solid rgb(230, 120, 47);
+}
+.userNav{
+    border-bottom: 1px solid rgb(233, 224, 224);
+ 
+}
+@media only screen and (max-width: 768px) {
+    .navitems{
+        position: static !important;
+        width: auto;
+    }
+    .navitems a{
+        margin-right: 10px;
+        margin-left: 10px;
+        padding: 10px !important;
+    }
+    .navitems :nth-child(4){
+        margin-right: 0px !important;
+    }
+    .navitems a:nth-child(4){
+        display: none;
+    }
+   
+}

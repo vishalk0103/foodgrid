@@ -1,48 +1,73 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 import Sidebar from "../shared/SideBar";
 import style from "./AddressForm.module.css";
-import Validation from "../shared/Validation";
 import Spinner from "../shared/Spinner";
+import useForm from "../Hooks/useForm";
+import { useSelector } from "react-redux";
 
 const AddressForm = (props) => {
-  const user=JSON.parse(localStorage.getItem('user'))
+  const user = useSelector((state) => state.auth);
+  const {
+    value: address,
+    hasError: addHasError,
+    isValidate: addIsValid,
+    onChangeHandler: addressChangeHandler,
+    onBlurHanlder: addressBlurHandler,
+  } = useForm((value) => value.trim() !== "");
+  const {
+    value: flatNo,
+    hasError: flatNoHasError,
+    isValidate: flatNoIsValid,
+    onChangeHandler: flatNoChangeHandler,
+    onBlurHanlder: flatNoBlurHandler,
+  } = useForm((value) => value.trim() !== "");
+  const {
+    value: city,
+    hasError: cityHasError,
+    isValidate: cityIsValid,
+    onChangeHandler: cityChangeHandler,
+    onBlurHanlder: cityBlurHandler,
+  } = useForm((value) => value.trim() !== "");
+  const {
+    value: landmark,
+    hasError: landmarkHasError,
+    isValidate: landmarkIsValid,
+    onChangeHandler: landmarkChangeHandler,
+    onBlurHanlder: landmarkBlurHandler,
+  } = useForm((value) => value.trim() !== "");
+  const {
+    value: pincode,
+    hasError: pincodeHasError,
+    isValidate: pincodeIsValid,
+    onChangeHandler: pincodeChangeHandler,
+    onBlurHanlder: pincodeBlurHandler,
+  } = useForm((value) => value.trim() !== "");
   const [isLoading, setIsLoading] = useState(false);
-  const [formValue, setFormValue] = useState({
-    address: "",
-    flatNo: "",
-    city: "",
-    landmark: "",
-    pincode: "",
-  });
-  const [errors, setErrors] = useState({});
 
-  const onChange = (e) => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
-  };
+  let formIsValid = false;
+  if (
+    addIsValid &&
+    flatNoIsValid &&
+    cityIsValid &&
+    landmarkIsValid &&
+    pincodeIsValid
+  ) {
+    formIsValid = true;
+  }
+
   const onAddFormSubHandler = async (e) => {
     e.preventDefault();
-    setErrors(Validation(formValue));
-    if (
-      formValue.address.length === 0 ||
-      formValue.flatNo.length === 0 ||
-      formValue.city.length === 0 ||
-      formValue.landmark.length === 0 ||
-      formValue.pincode.length < 1
-    ) {
-      return;
-    }
     setIsLoading(true);
     try {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          address: formValue.address,
-          flatNo: formValue.flatNo,
-          city: formValue.city,
-          landmark: formValue.landmark,
-          pincode: formValue.pincode,
+          address: address,
+          flatNo: flatNo,
+          city: city,
+          landmark: landmark,
+          pincode: pincode,
           user: user.userId,
         }),
       };
@@ -58,14 +83,6 @@ const AddressForm = (props) => {
       setIsLoading(false);
       console.log(err);
     }
-
-    setFormValue({
-      address: "",
-      flatNo: "",
-      city: "",
-      landmark: "",
-      pincode: "",
-    });
   };
 
   return (
@@ -100,12 +117,13 @@ const AddressForm = (props) => {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={onChange}
-                      value={formValue.address}
+                      onChange={addressChangeHandler}
+                      value={address}
+                      onBlur={addressBlurHandler}
                       name="address"
                     />
-                    {errors.address && (
-                      <p className="text-danger">{errors.address}</p>
+                    {addHasError && (
+                      <p className="text-danger">Please Enter Address.</p>
                     )}
                   </div>
                 </div>
@@ -121,12 +139,13 @@ const AddressForm = (props) => {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={onChange}
-                      value={formValue.flatNo}
+                      onChange={flatNoChangeHandler}
+                      value={flatNo}
+                      onBlur={flatNoBlurHandler}
                       name="flatNo"
                     />
-                    {errors.flatNo && (
-                      <p className="text-danger">{errors.flatNo}</p>
+                    {flatNoHasError && (
+                      <p className="text-danger">Please Enter FlatNo.</p>
                     )}
                   </div>
                 </div>
@@ -142,12 +161,13 @@ const AddressForm = (props) => {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={onChange}
-                      value={formValue.city}
+                      onChange={cityChangeHandler}
+                      value={city}
+                      onBlur={cityBlurHandler}
                       name="city"
                     />
-                    {errors.city && (
-                      <p className="text-danger">{errors.city}</p>
+                    {cityHasError && (
+                      <p className="text-danger">Please Enter City.</p>
                     )}
                   </div>
                 </div>
@@ -163,12 +183,13 @@ const AddressForm = (props) => {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={onChange}
-                      value={formValue.landmark}
+                      onChange={landmarkChangeHandler}
+                      value={landmark}
+                      onBlur={landmarkBlurHandler}
                       name="landmark"
                     />
-                    {errors.landmark && (
-                      <p className="text-danger">{errors.landmark}</p>
+                    {landmarkHasError && (
+                      <p className="text-danger">Please Enter Landmark.</p>
                     )}
                   </div>
                 </div>
@@ -184,17 +205,21 @@ const AddressForm = (props) => {
                     <input
                       className="form-control"
                       type="number"
-                      onChange={onChange}
-                      value={formValue.pincode}
+                      onChange={pincodeChangeHandler}
+                      value={pincode}
+                      onBlur={pincodeBlurHandler}
                       name="pincode"
                     />
-                    {errors.pincode && (
-                      <p className="text-danger">{errors.pincode}</p>
+                    {pincodeHasError && (
+                      <p className="text-danger">Please Enter Pincode.</p>
                     )}
                   </div>
                 </div>
                 <div className={style.button}>
-                  <button className={`btn btn-success ${style.addBtn}`}>
+                  <button
+                    disabled={!formIsValid}
+                    className={`btn btn-success ${style.addBtn}`}
+                  >
                     Save
                   </button>
                 </div>

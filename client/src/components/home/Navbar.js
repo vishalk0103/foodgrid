@@ -3,9 +3,10 @@ import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
 import NeedHelpModal from "../shared/NeedHelpModal";
 import ProfileSidebar from "../shared/ProfileSidebar";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useSelector((state) => state.auth);
   const [modalShow, setModalShow] = useState(false);
   const [showUser, setShowUser] = useState(false);
 
@@ -22,8 +23,9 @@ const Navbar = () => {
 
   return (
     <React.Fragment>
-      <ProfileSidebar show={showUser} onHide={onHideUserHandler} />
-
+      {user.token && (
+        <ProfileSidebar show={showUser} onHide={onHideUserHandler} />
+      )}
       <NeedHelpModal show={modalShow} onHide={onHideHelpHandler} />
 
       <section className="nav-cs">
@@ -43,9 +45,8 @@ const Navbar = () => {
                       to="/"
                     >
                       <img
-                        className="px-4"
-                        className="help-icon px-2"
-                        src="https://image.flaticon.com/icons/png/512/3799/3799744.png"
+                        className="help-icon px-1"
+                        src="https://img.icons8.com/fluency-systems-regular/2x/ffffff/poll-topic.png"
                       />
                       <span>NEED HELP?</span>
                     </Link>
@@ -54,7 +55,7 @@ const Navbar = () => {
                 <span className="text-white middle-sign bg-white mx-2"></span>
                 <div>
                   <li className="nav-item">
-                    {user.isLoggedIn && (
+                    {user.token && (
                       <Link
                         to="/"
                         className="nav-link  text-white bolder"
@@ -62,18 +63,18 @@ const Navbar = () => {
                       >
                         <img
                           className="me-2 profile-logo"
-                          src="https://image.flaticon.com/icons/png/128/3745/3745332.png"
+                          src="https://img.icons8.com/bubbles/2x/user.png"
                         />
                         <span style={{ textTransform: "uppercase" }}>
                           {user.username}
                         </span>
                       </Link>
                     )}
-                    {!user.isLoggedIn && (
+                    {!user.token && (
                       <Link to="/login" className="nav-link  text-white bolder">
                         <img
                           className="profile-logo me-2"
-                          src="https://image.flaticon.com/icons/png/128/3745/3745332.png"
+                          src="https://img.icons8.com/bubbles/2x/user.png"
                         />
                         <span>LOGIN</span>
                       </Link>

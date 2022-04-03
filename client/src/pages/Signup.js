@@ -3,14 +3,17 @@ import NavBarNew from "../components/shared/NavbarNew";
 import style from "./Auth.module.css";
 import { Link } from "react-router-dom";
 import Spinner from "../components/shared/Spinner";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { TopModal } from "../components/shared/Modal";
 import useForm from "../components/Hooks/useForm";
 import useHttp from "../components/Hooks/useHttp";
+import { useDispatch } from "react-redux";
+import { AuthActions } from "../components/store/Auth-slice";
 
 const Signup = () => {
   const { isLoading, error, sendRequest, clearError } = useHttp();
-  const history = useHistory();
+  const dispatch=useDispatch()
+  const navigate = useNavigate();
 
   const {
     value: name,
@@ -54,15 +57,15 @@ const Signup = () => {
         },
       },
       (responseData) => {
-        let data = {
-          token: responseData.token,
-          username: responseData.name,
-          email: responseData.email,
-          userId: responseData.userId,
-          isLoggedIn: true,
-        };
-        localStorage.setItem("user", JSON.stringify(data));
-        history.push("/");
+        dispatch(
+          AuthActions.login({
+            token: responseData.token,
+            userId: responseData.userId,
+            username: responseData.username,
+            email: responseData.email,
+          })
+        );
+        navigate("/");
       }
     );
   };

@@ -3,23 +3,25 @@ import AddressList from "./AddressList";
 import AddressForm from "./AddressForm";
 import useHttp from "../Hooks/useHttp";
 import AddressButton from "./AddressButton";
+import { useSelector } from "react-redux";
 
 const Address = () => {
-  const user=JSON.parse(localStorage.getItem('user'))
+  const user = useSelector(state=>state.auth)
   const { sendRequest } = useHttp();
   const [addForm, setAddForm] = useState(false);
   const [loadedAddress, setLoadedAddress] = useState([]);
-
   useEffect(() => {
-    sendRequest(
-      {
-        url: process.env.REACT_APP_BACKEND + `/address/${user.userId}`,
-      },
-      (loadAddress) => {
-        setLoadedAddress(loadAddress.addresses);
-      }
-    );
-  }, [sendRequest]);
+      if (user) {
+      sendRequest(
+        {
+          url: process.env.REACT_APP_BACKEND + `/address/${user.userId}`,
+        },
+        (loadAddress) => {
+          setLoadedAddress(loadAddress.addresses);
+        }
+      );
+    }
+    }, [sendRequest]);
 
   const onHideAddFormHandler = () => {
     setAddForm(false);

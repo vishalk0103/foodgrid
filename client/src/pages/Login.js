@@ -1,16 +1,20 @@
 import React from "react";
 import Spinner from "../components/shared/Spinner";
 import NavBarNew from "../components/shared/NavbarNew";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import style from "./Auth.module.css";
 import { TopModal } from "../components/shared/Modal";
 import useForm from "../components/Hooks/useForm";
 import useHttp from "../components/Hooks/useHttp";
+import {useDispatch} from 'react-redux'
+import { AuthActions } from "../components/store/Auth-slice";
 
 const Login = () => {
-  const history = useHistory();
+  const dispatch=useDispatch()
+  const navigate = useNavigate();
   const { isLoading, error, clearError, sendRequest } = useHttp();
 
+  
   const {
     value: email,
     hasError: emailHasError,
@@ -26,6 +30,8 @@ const Login = () => {
     onChangeHandler: passwordOnChangeHandler,
     onBlurHanlder: passwordBlurHandler,
   } = useForm((value) => value.trim() !== "");
+  
+ 
   let formIsValid = false;
   if (emailIsValidate && passIsValid) {
     formIsValid = true;
@@ -45,15 +51,8 @@ const Login = () => {
         },
       },
       (responseData) => {
-        let data = {
-          token: responseData.token,
-          username: responseData.name,
-          email: responseData.email,
-          userId: responseData.userId,
-          isLoggedIn: true,
-        };
-        localStorage.setItem("user", JSON.stringify(data));
-        history.push("/");
+       dispatch(AuthActions.login({token:responseData.token,userId:responseData.userId,username:responseData.username,email:responseData.email}))
+        navigate("/");
       }
     );
   };

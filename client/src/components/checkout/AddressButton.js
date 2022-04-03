@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { TopModal } from "../shared/Modal";
 import { Link } from "react-router-dom";
 import style from "./AddressButton.module.css";
+import { useSelector } from "react-redux";
 
 const AddressButton = (props) => {
-  let user=JSON.parse(localStorage.getItem('user'))
+  let user = useSelector((state) => state.auth);
 
   const [loginModal, setLoginModal] = useState(false);
 
@@ -45,7 +46,7 @@ const AddressButton = (props) => {
         <div className={`${style.addressBtn}`}>
           <div className={` ${style.addressButton}`}>
             <h5 className="mt-3 mx-3">Add new address</h5>
-            {user.isLoggedIn && (
+            {user.token && (
               <button
                 className="btn btn-dark mt-4 mx-3"
                 onClick={props.onClick}
@@ -53,7 +54,7 @@ const AddressButton = (props) => {
                 ADD NEW
               </button>
             )}
-            {!user.isLoggedIn && (
+            {!user.token && (
               <button className="btn btn-dark mt-4 mx-3" onClick={onShowLogin}>
                 ADD NEW
               </button>
